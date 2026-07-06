@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serhii Zelinskyi - Developer & Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d9ff;
+            --text: #e0e6ff;
+            --text-dim: #a0aec0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header with profile */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .profile-img {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+            object-fit: cover;
+        }
+
+        .intro {
+            flex: 1;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00d9ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        /* Main content */
+        .content {
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .section p {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .section ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section li {
+            padding: 1rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .section li:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .section li::before {
+            content: "▸ ";
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        /* Social links */
+        .social {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                padding: 2rem 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .intro h1 {
+                font-size: 1.8rem;
+            }
+
+            .intro p {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.2rem;
+            }
+
+            .section ul {
+                grid-template-columns: 1fr;
+            }
+
+            .social {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="container">
+        <div class="header">
+            <img src="https://avatars.githubusercontent.com/u/REPLACE_WITH_ID?v=4" alt="Serhii Zelinskyi" class="profile-img">
+            <div class="intro">
+                <h1>Serhii Zelinskyi</h1>
+                <p>Developer focused on practical software with clean experiences</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>About</h2>
+                <p>I'm a developer focused on building practical, well-structured software with clean user experiences, reliable systems, and thoughtful automation.</p>
+                <p>I like turning ideas into working products, improving existing codebases, and using modern tools to move faster without losing clarity. My work sits around product-minded engineering, full-stack development, and AI-assisted workflows.</p>
+            </div>
+
+            <div class="section">
+                <h2>What I'm focused on 🚀</h2>
+                <ul>
+                    <li>Building useful web apps, tools, and product experiences</li>
+                    <li>Writing clean, maintainable code</li>
+                    <li>Improving workflows with automation and AI</li>
+                    <li>Learning by shipping real projects</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>How I work 🛠️</h2>
+                <p>I care about clarity, consistency, and building things that are genuinely useful. I prefer practical solutions, thoughtful design, and codebases that are easy to understand and improve over time.</p>
+                <p><strong>Always learning, always building.</strong></p>
+            </div>
+
+            <div class="section">
+                <h2>Connect</h2>
+                <div class="social">
+                    <a href="https://github.com/serhiizelinsky" class="social-link">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/serhiizelinsky" class="social-link">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://twitter.com/serhiizelinsky" class="social-link">
+                        <span>Twitter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Serhii Zelinskyi. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Animated background with floating particles
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 217, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 14, 39, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+
+                // Draw lines between nearby particles
+                particles.forEach(otherParticle => {
+                    const dx = particle.x - otherParticle.x;
+                    const dy = particle.y - otherParticle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.1 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(otherParticle.x, otherParticle.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
