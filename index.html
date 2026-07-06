@@ -329,11 +329,13 @@
         </div>
 
         <div class="footer">
-            <p>© 2025 Serhii Zelinskyi. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> Serhii Zelinskyi. All rights reserved.</p>
         </div>
     </div>
 
     <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
         // Animated background with floating particles
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
